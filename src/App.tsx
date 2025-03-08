@@ -2,6 +2,7 @@
 import Header from './components/Header';
 import Button from './components/Button';
 import Select from './components/Select';
+import TodoList from './components/TodoList';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <section className='flex items-center justify-between'>
           <Button text='Add Task' onClick={() => console.log('add todo')} />
           <Select />
+        </section>
+        <section>
+          <TodoList />
         </section>
       </div>
     </main>

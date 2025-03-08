@@ -12,7 +12,7 @@ const dummyTodos: Todo[] = [
 
 function App() {
   return (
-    <main className='flex items-center justify-center h-screen w-screen bg-violet-100'>
+    <main className='flex items-center justify-center h-screen w-screen bg-blue-50'>
       <div className='w-full max-w-[800px] text-center'>
         <section className='mb-10'>
           <Header title='Todoist' />

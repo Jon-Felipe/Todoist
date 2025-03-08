@@ -13,7 +13,7 @@ type TodoListProps = {
 
 function TodoList({ todo }: TodoListProps) {
   return (
-    <div className='bg-violet-200 p-8 rounded-xl'>
+    <div className='bg-blue-100 p-8 rounded-xl'>
       {todo.map((todo) => (
         <div key={todo.id} className='py-4 mb-4 bg-white rounded-xl shadow-sm'>
           <div className='flex items-center justify-between px-4'>

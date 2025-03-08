@@ -9,7 +9,7 @@ function Button({ text, onClick }: ButtonProps) {
   return (
     <button
       type='button'
-      className='bg-violet-600 text-white text-lg font-semibold px-6 py-2 rounded-lg shadow-md cursor-pointer'
+      className='bg-blue-600 text-white text-lg font-semibold px-6 py-2 rounded-lg shadow-md cursor-pointer'
       onClick={onClick}
     >
       {text}

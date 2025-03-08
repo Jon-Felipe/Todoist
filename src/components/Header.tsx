@@ -1,7 +1,15 @@
-type HeaderProps = {};
+type HeaderProps = {
+  title: string;
+};
 
-function Header({}: HeaderProps) {
-  return <div>Header</div>;
+function Header({ title }: HeaderProps) {
+  return (
+    <section>
+      <h1 className='text-5xl font-bold tracking-widest text-neutral-600'>
+        {title}
+      </h1>
+    </section>
+  );
 }
 
 export default Header;

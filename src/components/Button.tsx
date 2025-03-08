@@ -1,7 +1,20 @@
-type ButtonProps = {};
+import React from 'react';
 
-function Button({}: ButtonProps) {
-  return <button>Button</button>;
+type ButtonProps = {
+  text: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+function Button({ text, onClick }: ButtonProps) {
+  return (
+    <button
+      type='button'
+      className='bg-violet-600 text-white text-lg font-semibold px-6 py-2 rounded-lg shadow-md cursor-pointer'
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
 }
 
 export default Button;

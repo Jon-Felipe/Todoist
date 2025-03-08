@@ -4,11 +4,11 @@ type HeaderProps = {
 
 function Header({ title }: HeaderProps) {
   return (
-    <section>
+    <header>
       <h1 className='text-5xl font-bold tracking-widest text-neutral-600 uppercase'>
         {title}
       </h1>
-    </section>
+    </header>
   );
 }
 

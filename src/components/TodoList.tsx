@@ -3,49 +3,84 @@ import { FaTrash, FaPen } from 'react-icons/fa';
 export interface Todo {
   id: string | number;
   title: string;
+  description: string;
   date: Date;
-  completed: boolean;
+  isCompleted: boolean;
 }
 
 type TodoListProps = {
-  todo: Todo[];
+  todos: Todo[];
 };
 
-function TodoList({ todo }: TodoListProps) {
+function TodoList({ todos }: TodoListProps) {
   return (
-    <div className='bg-blue-100 p-8 rounded-xl'>
-      {todo.map((todo) => (
-        <div key={todo.id} className='py-4 mb-4 bg-white rounded-xl shadow-sm'>
-          <div className='flex items-center justify-between px-4'>
-            <div className='flex items-center'>
-              <input
-                type='checkbox'
-                name=''
-                id=''
-                checked={todo.completed}
-                className='w-6 h-6'
-              />
-              <div className='text-left ml-6'>
-                <h3 className='text-xl font-bold text-neutral-500'>
-                  {todo.title}
-                </h3>
-                <p className='text-sm font-semibold text-neutral-500'>
-                  {todo.date.toDateString()}
-                </p>
+    <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
+      <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
+        <tr>
+          <th className='pl-6 py-3'>
+            <input type='checkbox' name='' id='' />
+          </th>
+          <th scope='col' className='px-6 py-3'>
+            Title
+          </th>
+          <th scope='col' className='px-6 py-3'>
+            Description
+          </th>
+          <th scope='col' className='px-6 py-3'>
+            Status
+          </th>
+          <th scope='col' className='px-6 py-3'>
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {todos.map((todo) => (
+          <tr key={todo.id} className='bg-white border-b'>
+            <td className='pl-6 py-3'>
+              <input type='checkbox' name='' id='' />
+            </td>
+            <th
+              scope='row'
+              className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex flex-col capitalize'
+            >
+              {todo.title}
+              <span className='text-gray-500 font-normal text-xs'>
+                {todo.date.toDateString()}
+              </span>
+            </th>
+            <td scope='col' className='px-6 py-3'>
+              {todo.description}
+            </td>
+            <td scope='col' className='px-6 py-3 capitalize'>
+              {todo.isCompleted ? (
+                <div className='bg-green-500 px-4 py-2 flex items-center justify-center'>
+                  <p className='text-center text-white font-semibold'>
+                    Completed
+                  </p>
+                </div>
+              ) : (
+                <div className='bg-red-500 px-4 py-2'>
+                  <p className='text-center text-white font-semibold'>
+                    In progress
+                  </p>
+                </div>
+              )}
+            </td>
+            <td scope='col' className='px-6 py-3'>
+              <div className='flex items-center gap-x-6'>
+                <button className='cursor-pointer'>
+                  <FaTrash className='text-red-500' />
+                </button>
+                <button className='cursor-pointer'>
+                  <FaPen className='text-blue-500' />
+                </button>
               </div>
-            </div>
-            <div className='flex items-center gap-x-2'>
-              <button className='bg-neutral-200 p-3 rounded-lg cursor-pointer'>
-                <FaTrash />
-              </button>
-              <button className='bg-neutral-200 p-3 rounded-lg cursor-pointer'>
-                <FaPen />
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 

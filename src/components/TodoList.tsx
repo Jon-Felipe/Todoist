@@ -10,9 +10,10 @@ export interface Todo {
 
 type TodoListProps = {
   todos: Todo[];
+  handleRemoveTodo: (todoId: number | string) => void;
 };
 
-function TodoList({ todos }: TodoListProps) {
+function TodoList({ todos, handleRemoveTodo }: TodoListProps) {
   return (
     <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
       <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
@@ -69,7 +70,10 @@ function TodoList({ todos }: TodoListProps) {
             </td>
             <td scope='col' className='px-6 py-3'>
               <div className='flex items-center gap-x-6'>
-                <button className='cursor-pointer'>
+                <button
+                  className='cursor-pointer'
+                  onClick={() => handleRemoveTodo(todo.id)}
+                >
                   <FaTrash className='text-red-500' />
                 </button>
                 <button className='cursor-pointer'>

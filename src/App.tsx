@@ -46,6 +46,11 @@ function App() {
     });
   }
 
+  function removeTodo(todoId: string | number) {
+    const newTodos: Todo[] = todos.filter((todo) => todo.id !== todoId);
+    setTodos(newTodos);
+  }
+
   return (
     <main className='p-14'>
       <section className='mb-10'>
@@ -55,7 +60,7 @@ function App() {
         <AddTodo onHandleAddTodo={addTodo} />
       </section>
       <section>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} handleRemoveTodo={removeTodo} />
       </section>
     </main>
   );

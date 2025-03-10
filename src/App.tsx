@@ -30,7 +30,23 @@ const dummyTodos: Todo[] = [
 ];
 
 function App() {
+  const [todo, setTodo] = useState<Todo>({
+    id: '',
+    title: '',
+    description: '',
+    date: '',
+    isCompleted: false,
+  });
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setTodo((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  }
 
   function addTodo(todo: Partial<Todo>) {
     if (todo.title?.trim() === '' || todo.description?.trim() === '') {
@@ -62,7 +78,11 @@ function App() {
         <Header title='Todoist Appilication' />
       </section>
       <section className='mb-4'>
-        <AddTodo onHandleAddTodo={addTodo} />
+        <AddTodo
+          todo={todo}
+          onHandleChange={handleOnChange}
+          onHandleAddTodo={addTodo}
+        />
       </section>
       <section>
         <TodoList todos={todos} handleRemoveTodo={removeTodo} />

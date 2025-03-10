@@ -45,7 +45,6 @@ function App() {
       return [...prevState, newTodo];
     });
   }
-  console.log(todos, '==todos==');
 
   return (
     <main className='p-14'>

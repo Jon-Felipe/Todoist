@@ -32,13 +32,28 @@ const dummyTodos: Todo[] = [
 function App() {
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
 
+  function addTodo(todo: Partial<Todo>) {
+    const newTodo: Todo = {
+      id: Date.now(),
+      title: todo.title ?? 'Todo Title',
+      description: todo.description ?? 'Todo Description',
+      isCompleted: false,
+      date: new Date(),
+    };
+
+    setTodos((prevState) => {
+      return [...prevState, newTodo];
+    });
+  }
+  console.log(todos, '==todos==');
+
   return (
     <main className='p-14'>
       <section className='mb-10'>
         <Header title='Todoist Appilication' />
       </section>
       <section className='mb-4'>
-        <AddTodo />
+        <AddTodo onHandleAddTodo={addTodo} />
       </section>
       <section>
         <TodoList todos={todos} />

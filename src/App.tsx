@@ -33,6 +33,11 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
 
   function addTodo(todo: Partial<Todo>) {
+    if (todo.title?.trim() === '' || todo.description?.trim() === '') {
+      alert('Please provide a title and a description');
+      return;
+    }
+
     const newTodo: Todo = {
       id: Date.now(),
       title: todo.title ?? 'Todo Title',

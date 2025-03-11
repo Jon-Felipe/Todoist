@@ -4,16 +4,17 @@ export interface Todo {
   id: string | number;
   title: string;
   description: string;
-  date: Date;
+  date: Date | string;
   isCompleted: boolean;
 }
 
 type TodoListProps = {
   todos: Todo[];
   handleRemoveTodo: (todoId: number | string) => void;
+  handleEditTodo: (todoId: number | string) => void;
 };
 
-function TodoList({ todos, handleRemoveTodo }: TodoListProps) {
+function TodoList({ todos, handleRemoveTodo, handleEditTodo }: TodoListProps) {
   return (
     <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
       <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
@@ -47,7 +48,7 @@ function TodoList({ todos, handleRemoveTodo }: TodoListProps) {
             >
               {todo.title}
               <span className='text-gray-500 font-normal text-xs'>
-                {todo.date.toDateString()}
+                {todo.date.toLocaleString()}
               </span>
             </th>
             <td scope='col' className='px-6 py-3'>
@@ -76,7 +77,10 @@ function TodoList({ todos, handleRemoveTodo }: TodoListProps) {
                 >
                   <FaTrash className='text-red-500' />
                 </button>
-                <button className='cursor-pointer'>
+                <button
+                  className='cursor-pointer'
+                  onClick={() => handleEditTodo(todo.id)}
+                >
                   <FaPen className='text-blue-500' />
                 </button>
               </div>

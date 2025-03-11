@@ -38,6 +38,7 @@ function App() {
     isCompleted: false,
   });
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
@@ -48,28 +49,54 @@ function App() {
     });
   }
 
-  function addTodo(todo: Partial<Todo>) {
+  function addTodo() {
     if (todo.title?.trim() === '' || todo.description?.trim() === '') {
       alert('Please provide a title and a description');
       return;
     }
 
-    const newTodo: Todo = {
-      id: Date.now(),
-      title: todo.title ?? 'Todo Title',
-      description: todo.description ?? 'Todo Description',
-      isCompleted: false,
-      date: new Date(),
-    };
+    if (isEditing) {
+      const newTodos = [...todos];
+      const todoIndex = newTodos.findIndex((item) => item.id === todo.id);
+      newTodos[todoIndex] = todo;
+      setTodos(newTodos);
+    } else {
+      const newTodo: Todo = {
+        id: Date.now(),
+        title: todo.title ?? 'Todo Title',
+        description: todo.description ?? 'Todo Description',
+        isCompleted: false,
+        date: new Date(),
+      };
 
-    setTodos((prevState) => {
-      return [...prevState, newTodo];
+      setTodos((prevState) => {
+        return [...prevState, newTodo];
+      });
+    }
+
+    setTodo({
+      id: '',
+      title: '',
+      description: '',
+      isCompleted: false,
+      date: '',
     });
   }
 
   function removeTodo(todoId: string | number) {
     const newTodos: Todo[] = todos.filter((todo) => todo.id !== todoId);
     setTodos(newTodos);
+  }
+
+  function editTodo(todoId: string | number) {
+    setIsEditing(true);
+
+    const todo = todos.find((todo) => todo.id === todoId);
+    if (todo) {
+      setTodo(todo);
+    } else {
+      alert(`Could not find todo with id: ${todoId}`);
+    }
   }
 
   return (
@@ -82,10 +109,15 @@ function App() {
           todo={todo}
           onHandleChange={handleOnChange}
           onHandleAddTodo={addTodo}
+          isEditing={isEditing}
         />
       </section>
       <section>
-        <TodoList todos={todos} handleRemoveTodo={removeTodo} />
+        <TodoList
+          todos={todos}
+          handleRemoveTodo={removeTodo}
+          handleEditTodo={editTodo}
+        />
       </section>
     </main>
   );

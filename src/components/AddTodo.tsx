@@ -8,10 +8,16 @@ import { Todo } from './TodoList';
 type AddTodoProps = {
   todo: Todo;
   onHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onHandleAddTodo: (todo: Partial<Todo>) => void;
+  onHandleAddTodo: () => void;
+  isEditing: boolean;
 };
 
-function AddTodo({ todo, onHandleChange, onHandleAddTodo }: AddTodoProps) {
+function AddTodo({
+  todo,
+  onHandleChange,
+  onHandleAddTodo,
+  isEditing,
+}: AddTodoProps) {
   return (
     <div className='border border-neutral-300 rounded-md p-6'>
       <div className='flex items-center gap-x-8'>
@@ -33,7 +39,10 @@ function AddTodo({ todo, onHandleChange, onHandleAddTodo }: AddTodoProps) {
             onChange={onHandleChange}
           />
         </div>
-        <Button text='Add Todo' onClick={() => onHandleAddTodo(todo)} />
+        <Button
+          text={isEditing ? 'Edit Todo' : 'Add Todo'}
+          onClick={onHandleAddTodo}
+        />
       </div>
     </div>
   );

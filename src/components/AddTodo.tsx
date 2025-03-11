@@ -41,6 +41,7 @@ function AddTodo({
         </div>
         <Button
           text={isEditing ? 'Edit Todo' : 'Add Todo'}
+          colour='blue'
           onClick={onHandleAddTodo}
         />
       </div>

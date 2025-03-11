@@ -81,6 +81,7 @@ function App() {
       isCompleted: false,
       date: '',
     });
+    setIsEditing(false);
   }
 
   function removeTodo(todoId: string | number) {

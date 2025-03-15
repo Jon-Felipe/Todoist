@@ -45,6 +45,8 @@ function App() {
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
+  const todosCheckedCount = todos.filter((todo) => todo.isChecked).length > 1;
+
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
     const value = e.target.value;
@@ -130,13 +132,15 @@ function App() {
       <section className='flex items-center justify-end gap-x-4 my-4'>
         <Button
           colour='red'
-          text='Clear Todo'
-          onClick={() => console.log('first')}
+          text={`Clear ${todosCheckedCount ? 'Todos' : 'Todo'}`}
+          onClick={() => {
+            setTodos(() => todos.filter((todo) => todo.isChecked !== true));
+          }}
         />
         <Button
           colour='green'
-          text='Complete Todo'
-          onClick={() => console.log('==selected==')}
+          text={`Complete ${todosCheckedCount ? 'Todos' : 'Todo'}`}
+          onClick={() => console.log(todos)}
         />
       </section>
       <section>

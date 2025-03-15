@@ -6,22 +6,27 @@ export interface Todo {
   description: string;
   date: Date | string;
   isCompleted: boolean;
+  isChecked: boolean;
 }
 
 type TodoListProps = {
   todos: Todo[];
   handleRemoveTodo: (todoId: number | string) => void;
   handleEditTodo: (todoId: number | string) => void;
+  handleOnChangeChecked: (todoId: number | string) => void;
 };
 
-function TodoList({ todos, handleRemoveTodo, handleEditTodo }: TodoListProps) {
+function TodoList({
+  todos,
+  handleRemoveTodo,
+  handleEditTodo,
+  handleOnChangeChecked,
+}: TodoListProps) {
   return (
     <table className='w-full text-sm text-left rtl:text-right text-gray-500'>
       <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
         <tr>
-          <th className='pl-6 py-3'>
-            <input type='checkbox' name='' id='' />
-          </th>
+          <th className='pl-6 py-3' />
           <th scope='col' className='px-6 py-3'>
             Title
           </th>
@@ -40,7 +45,13 @@ function TodoList({ todos, handleRemoveTodo, handleEditTodo }: TodoListProps) {
         {todos.map((todo) => (
           <tr key={todo.id} className='bg-white border-b'>
             <td className='pl-6 py-3'>
-              <input type='checkbox' name='' id='' />
+              <input
+                type='checkbox'
+                name='todo'
+                id='todo'
+                checked={todo.isChecked === true}
+                onChange={() => handleOnChangeChecked(todo.id)}
+              />
             </td>
             <th
               scope='row'

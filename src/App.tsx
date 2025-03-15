@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import AddTodo from './components/AddTodo';
 import TodoList, { Todo } from './components/TodoList';
+import Button from './components/Button';
 
 const dummyTodos: Todo[] = [
   {
@@ -12,6 +13,7 @@ const dummyTodos: Todo[] = [
     description: 'This is my first todo',
     date: new Date(),
     isCompleted: false,
+    isChecked: false,
   },
   {
     id: 2,
@@ -19,6 +21,7 @@ const dummyTodos: Todo[] = [
     description: 'This is my second todo',
     date: new Date(),
     isCompleted: false,
+    isChecked: false,
   },
   {
     id: 3,
@@ -26,6 +29,7 @@ const dummyTodos: Todo[] = [
     description: 'This is my third todo',
     date: new Date(),
     isCompleted: true,
+    isChecked: false,
   },
 ];
 
@@ -36,6 +40,7 @@ function App() {
     description: '',
     date: '',
     isCompleted: false,
+    isChecked: false,
   });
   const [todos, setTodos] = useState<Todo[]>(dummyTodos);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -65,8 +70,9 @@ function App() {
         id: Date.now(),
         title: todo.title ?? 'Todo Title',
         description: todo.description ?? 'Todo Description',
-        isCompleted: false,
         date: new Date(),
+        isCompleted: false,
+        isChecked: false,
       };
 
       setTodos((prevState) => {
@@ -80,6 +86,7 @@ function App() {
       description: '',
       isCompleted: false,
       date: '',
+      isChecked: false,
     });
     setIsEditing(false);
   }
@@ -100,6 +107,13 @@ function App() {
     }
   }
 
+  function handleTodoChecked(todoId: number | string) {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex((todo) => todo.id === todoId);
+    newTodos[todoIndex].isChecked = !newTodos[todoIndex].isChecked;
+    setTodos(newTodos);
+  }
+
   return (
     <main className='p-14'>
       <section className='mb-10'>
@@ -113,11 +127,24 @@ function App() {
           isEditing={isEditing}
         />
       </section>
+      <section className='flex items-center justify-end gap-x-4 my-4'>
+        <Button
+          colour='red'
+          text='Clear Todo'
+          onClick={() => console.log('first')}
+        />
+        <Button
+          colour='green'
+          text='Complete Todo'
+          onClick={() => console.log('==selected==')}
+        />
+      </section>
       <section>
         <TodoList
           todos={todos}
           handleRemoveTodo={removeTodo}
           handleEditTodo={editTodo}
+          handleOnChangeChecked={handleTodoChecked}
         />
       </section>
     </main>

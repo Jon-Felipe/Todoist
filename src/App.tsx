@@ -140,7 +140,16 @@ function App() {
         <Button
           colour='green'
           text={`Complete ${todosCheckedCount ? 'Todos' : 'Todo'}`}
-          onClick={() => console.log(todos)}
+          onClick={() => {
+            setTodos(() =>
+              todos.map((todo) => {
+                if (todo.isChecked) {
+                  return { ...todo, isCompleted: true };
+                }
+                return todo;
+              })
+            );
+          }}
         />
       </section>
       <section>
